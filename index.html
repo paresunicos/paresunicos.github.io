@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Pares Únicos: zapatillas seleccionadas, un modelo y una talla por par. Reserva por WhatsApp y retira en mano en Mostazal, Graneros, La Punta, Codegua y Rancagua.">
+<meta name="theme-color" content="#111111">
+<meta property="og:title" content="Pares Únicos">
+<meta property="og:description" content="Zapatillas seleccionadas. Cada par es único. Reserva por WhatsApp.">
+<meta property="og:type" content="website">
+<title>Pares Únicos</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap">
+<style>
+/* Catálogo en vitrina oscura: la zapatilla es lo único con color; el naranja solo marca la acción de reservar. */
+:root{--bg:#F4F4F4;--surface:#FFFFFF;--line:#DADADA;--fg:#111111;--muted:#555555;--accent:#D62020;--accent-fg:#FFFFFF;--accent-text:#D62020;--hero:#111111;--hero-fg:#FFFFFF;--hero-muted:#D0D0D0;--price:#E32B2B;--ok:#0F7B4B;--warn:#8A5A00;--shoe:#111111;--shoe-sole:#FFFFFF;--t1:#FFD84D;--t2:#FF9EC4;--t3:#7FE3BC;--t4:#9CC8FF;--t5:#FFB48A;--font-d:'Space Grotesk',system-ui,sans-serif;--font-b:'Inter',system-ui,sans-serif;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F0F0F;--surface:#1B1B1B;--line:#333333;--fg:#FAFAFA;--muted:#B5B5B5;--accent:#E32B2B;--accent-fg:#FFFFFF;--accent-text:#FF6B6B;--hero:#000000;--price:#FF5A5A;--ok:#3DDC97;--warn:#FFD84D;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0F0F0F;--surface:#1B1B1B;--line:#333333;--fg:#FAFAFA;--muted:#B5B5B5;--accent:#E32B2B;--accent-fg:#FFFFFF;--accent-text:#FF6B6B;--hero:#000000;--price:#FF5A5A;--ok:#3DDC97;--warn:#FFD84D;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-b);font-size:16px;line-height:1.5;padding-block:0 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1040px;margin:0 auto}
+header{margin-top:0;padding:26px 22px;border-radius:0 0 20px 20px;background:var(--hero);color:var(--hero-fg)}
+.brand{font-family:var(--font-d);font-weight:700;font-size:clamp(2rem,7vw,3.2rem);letter-spacing:-.02em;line-height:1;margin:0;text-wrap:balance}
+.tag{margin:10px 0 0;color:var(--hero-muted);max-width:52ch}
+.demo{margin:16px 0 0;padding:10px 14px;border:1px dashed #FFE066;color:#FFE066;border-radius:8px;font-size:.9rem}
+.bar{position:relative;z-index:5;background:transparent;padding-block:12px;border-bottom:1px solid var(--line);margin-top:14px}
+.bar-top{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.bar label{font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-block:8px 2px;scrollbar-width:thin}
+.chip{flex:none;border:2px solid var(--line);background:transparent;color:var(--fg);font:inherit;font-weight:500;padding:6px 14px;border-radius:999px;cursor:pointer;min-height:36px}
+.chip[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.chip:focus-visible,.btn:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid var(--accent-text);outline-offset:2px}
+select{background:var(--surface);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:7px 10px;font:inherit;min-height:36px}
+.count{margin-left:auto;color:var(--muted);font-size:.9rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px;padding-block:20px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.ph{position:relative;aspect-ratio:4/3;background:var(--t1);display:grid;place-items:center}.card:nth-child(5n+2) .ph{background:var(--t2)}.card:nth-child(5n+3) .ph{background:var(--t3)}.card:nth-child(5n+4) .ph{background:var(--t4)}.card:nth-child(5n+5) .ph{background:var(--t5)}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ph svg{width:62%;height:auto}
+.code{position:absolute;left:10px;top:10px;font-family:var(--font-d);font-weight:700;font-size:.78rem;letter-spacing:.08em;background:#111111;color:#fff;padding:3px 8px;border-radius:6px}
+.res{position:absolute;right:10px;top:10px;background:#111111;color:#FFE066;font-weight:600;font-size:.78rem;padding:3px 9px;border-radius:6px}
+.info{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.mk{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.md{font-family:var(--font-d);font-weight:700;font-size:1.25rem;line-height:1.2;margin:0;overflow-wrap:anywhere}
+.meta{display:flex;gap:14px;flex-wrap:wrap;align-items:center;color:var(--muted);font-size:.92rem}
+.meta b{color:var(--fg);font-weight:600}
+.pips{display:inline-flex;gap:3px;vertical-align:middle;margin-left:6px}
+.pips i{width:7px;height:7px;border-radius:50%;background:var(--line)}
+.pips i.on{background:var(--ok)}
+.price{font-family:var(--font-d);font-weight:700;font-size:1.7rem;color:var(--price);font-variant-numeric:tabular-nums;margin-top:auto;padding-top:6px}
+.btn{font-size:1.02rem;display:flex;align-items:center;justify-content:center;gap:8px;text-align:center;text-decoration:none;font-weight:600;background:var(--accent);color:var(--accent-fg);border:0;border-radius:10px;padding:12px 14px;min-height:46px}
+.btn[aria-disabled="true"]{background:transparent;border:1px solid var(--line);color:var(--muted)}
+.empty{padding:40px 0;color:var(--muted);text-align:center}
+.how{border-top:1px solid var(--line);margin-top:10px;padding-top:26px;display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.how h2{font-family:var(--font-d);font-size:1.15rem;margin:0 0 10px}
+.how ol,.how ul{margin:0;padding-left:1.2em;color:var(--muted)}
+.how li{margin-bottom:6px}
+.how li b{color:var(--fg)}
+.fine{margin-top:26px;color:var(--muted);font-size:.85rem}
+.wa{font-variant-numeric:tabular-nums;user-select:all;color:var(--fg);font-weight:600}
+
+.hero-cta{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.hero-cta a{display:inline-flex;align-items:center;min-height:44px;padding:10px 16px;border-radius:999px;font-weight:600;text-decoration:none;background:#FFD84D;color:#111111}
+.hero-cta a.alt{background:transparent;color:#fff;border:2px solid #ffffff88}
+.trust{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;padding-block:14px 0}@media(min-width:760px){.trust{grid-template-columns:repeat(4,1fr)}}
+.trust div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 12px;font-size:.8rem;line-height:1.35;color:var(--muted);min-width:0}
+.trust b{display:block;color:var(--fg);font-family:var(--font-d)}
+.sec{font-family:var(--font-d);font-size:1.3rem;margin:18px 0 0}
+.talla-q{margin:16px 0 0;font-family:var(--font-d);font-weight:700;font-size:1.05rem}
+.sort{display:flex;align-items:center;gap:8px}
+.new{position:absolute;left:10px;bottom:10px;background:#E32B2B;color:#fff;font-weight:700;font-size:.74rem;letter-spacing:.06em;padding:3px 9px;border-radius:6px;text-transform:uppercase}
+.uno{position:absolute;right:10px;bottom:10px;background:#fff;color:#111111;font-weight:600;font-size:.74rem;padding:3px 9px;border-radius:6px}
+.open{all:unset;cursor:pointer;display:block;position:relative}
+.open:focus-visible{outline:3px solid var(--accent-text);outline-offset:-3px}
+.pnote{grid-column:1/-1;background:var(--surface);border:2px dashed var(--line);border-radius:14px;padding:22px;text-align:center}
+.pnote a{color:var(--accent-text);font-weight:600}
+dialog{border:0;border-radius:20px;padding:0;max-width:min(560px,calc(100vw - 24px));width:100%;background:var(--surface);color:var(--fg);box-shadow:0 20px 60px #0008}
+dialog::backdrop{background:#0b0c2acc}
+.dl-ph{aspect-ratio:4/3;display:grid;place-items:center;position:relative}
+.dl-ph svg{width:62%}.dl-ph img{width:100%;height:100%;object-fit:cover}
+.dl-b{padding:18px 20px 22px;display:grid;gap:10px}
+.dl-b h2{font-family:var(--font-d);font-size:1.5rem;margin:0}
+.dl-x{position:absolute;right:10px;top:10px;width:44px;height:44px;border-radius:50%;border:0;background:#111111;color:#fff;font-size:1.3rem;cursor:pointer}
+.dl-x:focus-visible{outline:3px solid #FFD84D}
+.dl-list{margin:0;padding-left:1.2em;color:var(--muted);font-size:.95rem}
+.dl-list li{margin-bottom:4px}
+.note-ph{font-size:.8rem;color:var(--muted)}
+
+.ann{background:#111111;color:#fff;text-align:center;font-size:.82rem;font-weight:600;letter-spacing:.04em;padding:8px 12px;text-transform:uppercase;border-radius:0}
+.card{position:relative}
+.fav{position:absolute;right:8px;top:8px;z-index:2;width:44px;height:44px;border:0;border-radius:50%;background:#ffffffd9;color:#111111;font-size:1.3rem;line-height:1;cursor:pointer;display:grid;place-items:center}
+.fav[aria-pressed="true"]{background:#E32B2B;color:#fff}
+.fav:focus-visible{outline:3px solid var(--accent-text)}
+.res{right:auto!important;left:10px;top:auto!important;bottom:10px}
+.md{text-transform:uppercase;letter-spacing:.01em;font-size:1.05rem}
+.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media(min-width:620px){.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}}
+@media(min-width:900px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.info{padding:10px 12px 12px;gap:6px}
+.price{font-size:1.35rem}
+.btn{min-height:44px;padding:10px 8px;font-size:.95rem}
+.meta{gap:4px 10px;font-size:.85rem}
+.card{border-radius:10px}
+.code{font-size:.7rem;padding:2px 6px;left:8px;top:8px}
+.new{left:8px;bottom:8px;font-size:.68rem;padding:2px 7px}
+.chip.fv[aria-pressed="true"]{background:#E32B2B;border-color:#E32B2B}
+.tp{background:var(--fg);color:var(--bg);font-weight:700;border-radius:6px;padding:1px 8px}.ent{color:var(--ok);font-weight:600;font-size:.8rem;margin-top:-2px}
+@media all{.card{transition:transform .15s}.card:hover{transform:translateY(-2px)}}
+.tbtn{position:absolute;right:14px;top:14px;min-height:44px;padding:8px 14px;border-radius:999px;border:2px solid #ffffff88;background:transparent;color:#fff;font:inherit;font-weight:600;cursor:pointer}.tbtn:focus-visible{outline:3px solid #FFD84D;outline-offset:2px}header{position:relative}.brand{padding-right:110px}
+
+.ann{overflow:hidden;white-space:nowrap}
+.ann .tk{display:inline-block}
+@media all{
+ .ann .tk{padding-left:100%;animation:tick 22s linear infinite}
+ .ann:hover .tk{animation-play-state:paused}
+ @keyframes tick{to{transform:translateX(-100%)}}
+ header .brand,header .tag,header .hero-cta{animation:rise .6s cubic-bezier(.2,.7,.2,1) both}
+ header .tag{animation-delay:.08s}header .hero-cta{animation-delay:.16s}
+ @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+ .trust div{animation:rise .5s both}.trust div:nth-child(2){animation-delay:.06s}.trust div:nth-child(3){animation-delay:.12s}.trust div:nth-child(4){animation-delay:.18s}
+ html.anim .card{opacity:0;transform:translateY(22px) scale(.97)}
+ html.anim .card.in{opacity:1;transform:none;transition:opacity .5s ease,transform .5s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--d,0)*70ms)}
+ .card.in:hover{transform:translateY(-4px);transition-delay:0s;box-shadow:0 10px 24px #0002}
+ .card .ph svg,.card .ph img{transition:transform .35s cubic-bezier(.3,1.4,.5,1)}
+
+ .band .bt{display:inline-block;animation:band 28s linear infinite}
+ @keyframes band{to{transform:translateX(-50%)}}
+ .wapp{animation:rise .6s .8s both}.wapp i{display:inline-block;animation:wig 3.5s 2s ease-in-out infinite}
+ @keyframes wig{0%,8%,100%{transform:none}2%{transform:rotate(-14deg)}4%{transform:rotate(12deg)}6%{transform:rotate(-8deg)}}
+ .card:hover .ph svg{transform:translate(var(--tx,0px),var(--ty,0px)) rotate(-7deg) scale(1.1)}
+ .mini{transition:transform .2s}.mini:hover{transform:translateY(-3px)}
+ .card:hover .ph img{transform:scale(1.06)}
+ .ph{overflow:hidden}
+ .new{animation:pulse 1.8s ease-in-out infinite}
+ @keyframes pulse{50%{transform:scale(1.07)}}
+ .fav{transition:transform .15s}.fav:active{transform:scale(.85)}
+ .fav.pop{animation:heart .45s cubic-bezier(.3,1.6,.5,1)}
+ @keyframes heart{0%{transform:scale(.6)}60%{transform:scale(1.3)}100%{transform:scale(1)}}
+ .chip{transition:background .2s,color .2s,transform .12s}.chip:active{transform:scale(.94)}
+ .btn{transition:transform .12s,filter .2s}.btn:hover{filter:brightness(1.1)}.btn:active{transform:scale(.97)}
+ dialog[open]{animation:dlg .28s cubic-bezier(.2,.9,.3,1.2)}
+ dialog[open]::backdrop{animation:fade .25s}
+ @keyframes dlg{from{opacity:0;transform:translateY(24px) scale(.94)}to{opacity:1;transform:none}}
+ @keyframes fade{from{opacity:0}}
+ .price{transition:transform .2s}.card:hover .price{transform:translateX(3px)}
+}
+
+.hp{margin-top:16px}.hp-l{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--hero-muted);margin:0 0 8px}
+.hp-r{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.hp-r button{flex:none;min-width:48px;min-height:44px;border-radius:12px;border:2px solid #ffffff66;background:transparent;color:#fff;font:inherit;font-weight:700;font-size:1.05rem;cursor:pointer}
+.hp-r button:focus-visible{outline:3px solid #FFD84D;outline-offset:2px}
+.hp-r button:hover{background:#FFD84D;color:#111;border-color:#FFD84D}
+.band{overflow:hidden;white-space:nowrap;margin-block:22px 4px;border-block:2px solid var(--fg);padding-block:6px;user-select:none}
+.band span{display:inline-block;font-family:var(--font-d);font-weight:700;font-size:clamp(2rem,9vw,4.2rem);line-height:1.1;color:transparent;-webkit-text-stroke:2px var(--fg);letter-spacing:.02em;margin-right:.45em}
+.band span:nth-child(even){color:var(--fg);-webkit-text-stroke:0}
+.stats{display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);margin:6px 0 0;font-size:.95rem}.stats b{color:var(--fg);font-family:var(--font-d);font-size:1.3rem;font-variant-numeric:tabular-nums}
+.rec{margin-top:6px}
+.rail{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:10px 2px 14px;scrollbar-width:thin;margin-inline:-2px}
+.mini{all:unset;box-sizing:border-box;flex:none;width:min(66vw,240px);scroll-snap-align:start;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:block}
+.mini:focus-visible{outline:3px solid var(--accent-text);outline-offset:2px}
+.mini .ph{aspect-ratio:1/1}
+.mini .mi{padding:8px 12px 12px}
+.mini .md{font-size:.95rem}.mini .price{font-size:1.15rem;padding-top:2px}
+.wapp{position:fixed;right:max(14px,env(safe-area-inset-right,0px));bottom:max(14px,env(safe-area-inset-bottom,0px));z-index:20;display:flex;align-items:center;gap:8px;min-height:52px;padding:0 18px 0 14px;border-radius:999px;background:#25D366;color:#0b1f12;font-weight:700;text-decoration:none;box-shadow:0 6px 20px #0004}
+.wapp:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
+.wapp i{font-style:normal;font-size:1.3rem}
+.cf{position:fixed;width:9px;height:9px;pointer-events:none;z-index:50;border-radius:2px}
+
+header{overflow:hidden;isolation:isolate}
+header>*:not(.hero-bg){position:relative;z-index:1}
+header .tools{position:absolute;z-index:2}
+.hero-bg{position:absolute;inset:0;z-index:0;overflow:hidden;will-change:transform}
+.hero-img{position:absolute;inset:-6%;background-size:cover;background-position:50% 62%;filter:saturate(1.1) contrast(1.05)}
+.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,#000000e6 0%,#000000b3 45%,#00000066 100%),linear-gradient(0deg,#000000cc,transparent 55%)}
+.bgfx{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.bgfx i{position:absolute;border-radius:50%;filter:blur(60px);opacity:.38}
+.bgfx i:nth-child(1){width:46vmax;height:46vmax;left:-12vmax;top:10vh;background:var(--t1)}
+.bgfx i:nth-child(2){width:40vmax;height:40vmax;right:-10vmax;top:-8vh;background:var(--t2)}
+.bgfx i:nth-child(3){width:44vmax;height:44vmax;left:25vw;bottom:-22vmax;background:var(--t4)}
+.bgfx::after{content:"";position:absolute;inset:0;background-image:radial-gradient(var(--line) 1.2px,transparent 1.3px);background-size:26px 26px;opacity:.55}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .bgfx i{opacity:.22}}
+:root[data-theme="dark"] .bgfx i{opacity:.22}
+@media all{
+ .hero-img{animation:kb 22s ease-in-out infinite alternate}
+ @keyframes kb{from{transform:scale(1) translate(0,0)}to{transform:scale(1.12) translate(-2.5%,-1.5%)}}
+ .bgfx i:nth-child(1){animation:fl1 26s ease-in-out infinite alternate}
+ .bgfx i:nth-child(2){animation:fl2 31s ease-in-out infinite alternate}
+ .bgfx i:nth-child(3){animation:fl3 37s ease-in-out infinite alternate}
+ @keyframes fl1{to{transform:translate(18vw,14vh) scale(1.15)}}
+ @keyframes fl2{to{transform:translate(-20vw,22vh) scale(.9)}}
+ @keyframes fl3{to{transform:translate(-16vw,-18vh) scale(1.2)}}
+}
+
+.fz{position:absolute;left:var(--x);top:var(--y);width:var(--s);height:calc(var(--s)*.55);color:var(--c,var(--fg));opacity:.17;transform:rotate(var(--r))}
+.fz:nth-of-type(odd){opacity:.22}
+@media (max-width:620px){.fz{width:calc(var(--s)*.62);height:calc(var(--s)*.34)}}
+@media all{
+ .fz{animation:fzf var(--dur) ease-in-out var(--dl) infinite alternate}
+ @keyframes fzf{0%{transform:translate(0,0) rotate(var(--r))}50%{transform:translate(2.5vw,-5vh) rotate(calc(var(--r) + 8deg))}100%{transform:translate(-2vw,4vh) rotate(calc(var(--r) - 6deg))}}
+}
+
+.gal{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.gal::-webkit-scrollbar{display:none}
+.sl{all:unset;box-sizing:border-box;flex:none;width:100%;aspect-ratio:4/3;scroll-snap-align:center;position:relative;cursor:zoom-in;overflow:hidden}
+.sl img{width:100%;height:100%;object-fit:cover;display:block}
+.sl:focus-visible{outline:3px solid var(--accent-text);outline-offset:-3px}
+.gt{position:absolute;left:10px;bottom:10px;background:#111;color:#fff;font-size:.74rem;font-weight:600;padding:3px 9px;border-radius:6px}
+.gnav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:0;background:#ffffffe6;color:#111;font-size:1.4rem;cursor:pointer;z-index:2}
+.gnav.p{left:8px}.gnav.n{right:8px}
+@media (hover:none){.gnav{display:none}}
+.gwrap{position:relative}
+.gdots{display:flex;gap:6px;justify-content:center;align-items:center;padding:10px 0 0}
+.gdots i{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.gdots i.on{background:var(--fg);width:20px;border-radius:6px}
+.gdots span{font-size:.8rem;color:var(--muted);margin-left:8px}
+.dbox{border:1px solid var(--line);border-left:4px solid #E32B2B;border-radius:8px;padding:10px 12px;font-size:.92rem;color:var(--muted)}
+.dbox b{color:var(--fg)}
+.libera{background:color-mix(in srgb,var(--warn) 14%,transparent);border:1px solid var(--warn);border-radius:8px;padding:10px 12px;font-size:.92rem;color:var(--fg)}
+.share{display:flex;gap:8px;flex-wrap:wrap}
+.share button,.share a{flex:1 1 140px;min-height:44px;border-radius:10px;border:2px solid var(--line);background:transparent;color:var(--fg);font:inherit;font-weight:600;cursor:pointer;text-align:center;text-decoration:none;display:grid;place-items:center;padding:0 10px}
+.share button:focus-visible,.share a:focus-visible{outline:3px solid var(--accent-text)}
+.lnk{width:100%;min-height:44px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--fg);padding:0 10px;font:inherit;font-size:.85rem}
+#lb{max-width:100vw;max-height:100vh;width:100vw;height:100vh;border-radius:0;background:#000;overflow:hidden}
+#lb img{width:100%;height:100%;object-fit:contain;cursor:zoom-in;transition:transform .2s;display:block;user-select:none;-webkit-user-drag:none;touch-action:none}
+#lb img.z{cursor:zoom-out;transform:scale(2.6)}
+#lb .dl-x{z-index:3;top:max(12px,env(safe-area-inset-top,0px));right:max(12px,env(safe-area-inset-right,0px));background:#fff;color:#111}
+#lb .hint{position:absolute;left:0;right:0;bottom:max(14px,env(safe-area-inset-bottom,0px));text-align:center;color:#fff;font-size:.85rem;text-shadow:0 1px 4px #000}
+.sec2{margin-top:30px}
+.sec2 h2{font-family:var(--font-d);font-size:1.3rem;margin:0 0 6px}
+.borr{display:inline-block;margin-left:8px;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--warn);border:1px dashed var(--warn);border-radius:6px;padding:1px 8px;vertical-align:middle}
+.aviso{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:10px}
+.aviso .row{display:flex;gap:8px;flex-wrap:wrap}
+.aviso select,.aviso input{flex:1 1 140px;min-height:44px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--fg);padding:0 10px;font:inherit}
+.escala{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin:10px 0 0}
+.escala div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-size:.9rem;color:var(--muted)}
+.escala b{display:block;color:var(--fg);font-family:var(--font-d)}
+details.q{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin-top:8px}
+details.q summary{cursor:pointer;padding:14px 16px;min-height:44px;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:10px}
+details.q summary::-webkit-details-marker{display:none}
+details.q summary::after{content:"+";font-size:1.3rem;line-height:1}
+details.q[open] summary::after{content:"–"}
+details.q summary:focus-visible{outline:3px solid var(--accent-text);outline-offset:2px}
+details.q p{margin:0;padding:0 16px 14px;color:var(--muted)}
+html.nomov *,html.nomov *::before,html.nomov *::after{animation:none!important;transition:none!important}
+html.nomov .ann .tk{padding-left:0}
+.tools{position:absolute;right:14px;top:14px;display:flex;flex-direction:column;gap:6px;align-items:stretch}.tools .tbtn{position:static;min-height:44px;padding:8px 12px;font-size:.9rem}.brand{padding-right:130px!important}
+.bar{border-bottom-color:transparent;transition:background .2s,border-color .2s}
+.bar.stuck{background:transparent;-webkit-backdrop-filter:none;backdrop-filter:none;border-bottom-color:transparent}
+.bar.stuck .chip:not([aria-pressed="true"]){background:var(--surface);box-shadow:0 2px 8px rgba(0,0,0,.18)}
+.bar.stuck .chip[aria-pressed="true"]{box-shadow:0 2px 8px rgba(0,0,0,.28)}
+.bar.stuck>*:not(.chips){text-shadow:0 0 6px var(--bg),0 0 6px var(--bg),0 0 10px var(--bg)}
+.sec2#nosotros{text-align:center}.sec2#nosotros h2{text-align:center}
+.nos{margin:0 auto;max-width:62ch;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:6px 18px}
+.nos p{margin:12px 0;color:var(--muted)}.nos p:first-child{color:var(--fg)}
+#sent{height:1px;margin-bottom:-1px}
+</style>
+</head>
+<body>
+
+<div class="bgfx" aria-hidden="true"><i></i><i></i><i></i><svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="zapbg" viewBox="0 0 220 120"><path d="M12 84c0-10 4-16 12-18l30-8c10-3 16-9 22-20 3-6 8-8 14-6l20 8c8 3 14 8 22 14 10 7 22 10 40 13 18 3 34 10 34 22v7c0 4-3 7-7 7H20c-5 0-8-3-8-7z" fill="currentColor"/><path d="M12 92h196c0 9-3 13-9 13H21c-6 0-9-4-9-13z" fill="currentColor" opacity=".55"/></symbol></svg><svg class="fz" viewBox="0 0 220 120" style="--x:-2%;--y:12%;--s:260px;--r:-16deg;--dur:19s;--dl:0s;--c:var(--fg)"><use href="#zapbg"/></svg><svg class="fz" viewBox="0 0 220 120" style="--x:84%;--y:6%;--s:230px;--r:14deg;--dur:23s;--dl:-6s;--c:var(--accent)"><use href="#zapbg"/></svg><svg class="fz" viewBox="0 0 220 120" style="--x:88%;--y:50%;--s:300px;--r:-10deg;--dur:27s;--dl:-3s;--c:var(--fg)"><use href="#zapbg"/></svg><svg class="fz" viewBox="0 0 220 120" style="--x:-4%;--y:52%;--s:280px;--r:18deg;--dur:21s;--dl:-9s;--c:var(--accent)"><use href="#zapbg"/></svg><svg class="fz" viewBox="0 0 220 120" style="--x:80%;--y:80%;--s:260px;--r:-20deg;--dur:25s;--dl:-12s;--c:var(--fg)"><use href="#zapbg"/></svg><svg class="fz" viewBox="0 0 220 120" style="--x:2%;--y:86%;--s:220px;--r:8deg;--dur:29s;--dl:-5s;--c:var(--fg)"><use href="#zapbg"/></svg></div>
+<div class="wrap">
+<div class="ann"><span class="tk">Reserva con 30% · Entrega en mano · Pares únicos · Cada par es único &nbsp;·&nbsp; Reserva con 30% · Entrega en mano · Pares únicos · Cada par es único</span></div>
+<header>
+  <div class="hero-bg" id="herobg" aria-hidden="true"><div class="hero-img" style="background-image:none"></div></div>
+  <div class="tools"><button class="tbtn" id="tema" type="button" aria-label="Cambiar entre modo claro y oscuro"></button><button class="tbtn" id="mov" type="button" aria-label="Activar o desactivar animaciones"></button></div>
+  <h1 class="brand">Pares Únicos</h1>
+  <p class="tag">Zapatillas seleccionadas. Cada par es único: un modelo, una talla. Reserva por WhatsApp y retira en tu comuna.</p>
+  <div class="hero-cta"><a href="#catalogo">Ver todos los pares</a><a class="alt" href="https://www.instagram.com/par_unicos" target="_blank" rel="noopener">@par_unicos</a></div>
+  <p class="demo" id="demo" hidden>Datos de ejemplo. Los pares, tallas y precios de esta página son inventados, solo para ver cómo queda.</p>
+</header>
+<div class="trust" aria-label="Cómo funciona">
+  <div><b>Pares únicos</b>Un modelo, una talla.</div>
+  <div><b>Estado 1 a 10</b>Cada par con su nota.</div>
+  <div><b>Reserva con 30%</b>Saldo al retirar.</div>
+  <div><b>Entrega en mano</b>Regiones: consulta.</div>
+</div>
+<div class="band" aria-hidden="true"><div class="bt"><span>UN MODELO</span> <span>UNA TALLA</span> <span>PARES ÚNICOS</span> <span>UN MODELO</span> <span>UNA TALLA</span> <span>PARES ÚNICOS</span> </div></div>
+<section class="rec" id="recsec" hidden><h2 class="sec">Recién llegados</h2><div class="rail" id="rail" role="list"></div></section>
+<h2 class="sec" id="catalogo">Pares disponibles · elige tu talla</h2>
+<p class="stats" id="stats"></p>
+<div id="sent"></div>
+<div class="bar" id="bar">
+  <div class="bar-top">
+    <span class="sort"><label for="orden">Ordenar</label><select id="orden"><option value="nuevo">Más nuevos</option><option value="menor">Menor precio</option><option value="mayor">Mayor precio</option></select></span><span class="count" id="count" aria-live="polite"></span>
+  </div>
+  <div class="chips" id="mchips" role="group" aria-label="Filtrar por marca"></div>
+  <div class="chips" id="chips" role="group" aria-label="Filtrar por talla"></div>
+</div>
+<main class="grid" id="grid" aria-label="Pares disponibles"></main>
+<section class="sec2" id="avisame"><h2>¿No encuentras tu talla?</h2>
+  <div class="aviso"><p style="margin:0;color:var(--muted)">Cada par es único y los pares nuevos llegan cada cierto tiempo. Dinos tu talla y te escribimos cuando llegue algo.</p>
+  <div class="row"><select id="av-t" aria-label="Tu talla"></select><input id="av-n" type="text" placeholder="Tu nombre (opcional)" aria-label="Tu nombre" maxlength="40" autocomplete="off"><a class="btn" id="av-b" href="#" target="_blank" rel="noopener" style="flex:1 1 200px">Avísame por WhatsApp</a></div></div></section>
+<section class="sec2" id="estado"><h2>Cómo calificamos el estado<span class="borr" hidden>Borrador: revisar</span></h2>
+  <p style="margin:0;color:var(--muted)">Cada par lleva una nota de 1 a 10 que ponemos al revisarlo. Los detalles se muestran en las fotos.</p>
+  <div class="escala">
+   <div><b>10 · Como nuevo</b>Sin señales de uso a simple vista.</div>
+   <div><b>8 – 9 · Muy bueno</b>Uso mínimo: marcas leves en suela o costuras.</div>
+   <div><b>6 – 7 · Bueno</b>Uso visible: desgaste en suela o pliegues, sin daños que afecten el uso.</div>
+   <div><b>Menos de 6</b>No los publicamos.</div></div></section>
+<section class="sec2" id="faq"><h2>Preguntas frecuentes<span class="borr" hidden>Borrador: revisar</span></h2>
+  <details class="q"><summary>¿Cómo reservo un par?</summary><p>Toca "Reservar por WhatsApp" en el par que te guste. Te respondemos, confirmamos que sigue disponible y te enviamos los datos para el abono.</p></details>
+  <details class="q"><summary>¿Cuánto es el abono y se devuelve?</summary><p>El abono es del 30% del precio y no es reembolsable. Con eso el par queda reservado para ti.</p></details>
+  <details class="q"><summary>¿Cuánto tiempo tengo para pagar el resto?</summary><p>5 días hábiles desde la reserva. Si no se paga el saldo en ese plazo, el par vuelve al catálogo.</p></details>
+  <details class="q"><summary>¿Cómo puedo pagar?</summary><p>Por transferencia o en efectivo al recibir el par. No tenemos pago con tarjeta.</p></details>
+  <details class="q"><summary>¿Dónde entregan?</summary><p>En mano y en un lugar público en Mostazal, Graneros, La Punta, Codegua y Rancagua. Si estás en otra región, consúltanos por WhatsApp antes de reservar y vemos tu caso.</p></details>
+  <details class="q"><summary>¿Puedo cambiar de talla?</summary><p>No, porque cada par es único. Por eso mostramos fotos, el estado y el largo de la suela antes de que reserves.</p></details>
+  <details class="q"><summary>¿Y si el par tiene un defecto que no se informó?</summary><p>Avísanos dentro de los 3 días siguientes a recibirlo, con fotos, y lo revisamos contigo.</p></details>
+  <details class="q"><summary>¿Los pares son nuevos u originales?</summary><p>Son zapatillas usadas. Cada una se publica con su nota de estado, fotos y los detalles que vemos.</p></details>
+</section>
+<section class="sec2" id="nosotros"><h2>Nosotros</h2>
+  <div class="nos"><p><b>Somos una pareja joven de emprendedores.</b> Quisimos empezar un viaje distinto, arriesgarnos y ver hasta dónde podemos llegar.</p>
+  <p>Contamos con el apoyo de nuestra familia, que conoce el mundo de la feria, y queremos llevar este negocio más lejos: usar las redes sociales para llegar a más personas.</p>
+  <p>Lo que buscamos es gestionar bien, atenderte con cercanía y ofrecerte pares de buena calidad, revisados uno por uno.</p></div></section>
+<section class="how" id="como">
+  <div><h2>Cómo reservar</h2><ol>
+    <li><b>Elige tu par</b> y toca "Reservar por WhatsApp".</li>
+    <li><b>Abonas el 30%</b> (no reembolsable) por transferencia.</li>
+    <li><b>Pagas el resto</b> en 5 días hábiles, por transferencia o en efectivo en la entrega.</li>
+    <li><b>Recibes tu par</b> en mano, en tu comuna.</li></ol></div>
+  <div><h2>Entrega</h2><ul>
+    <li>En mano, en lugar público: Mostazal, Graneros, La Punta, Codegua y Rancagua.</li>
+    <li>A regiones: consúltanos por WhatsApp.</li></ul></div>
+  <div><h2>Contacto</h2><p style="margin:0;color:var(--muted)">WhatsApp <span class="wa">+56 9 6475 1229</span><br>Instagram @par_unicos</p></div>
+</section>
+<a class="wapp" id="wapp" href="#" target="_blank" rel="noopener"><i aria-hidden="true">💬</i>Consultas</a>
+<dialog id="dlg" aria-label="Detalle del par"></dialog>
+<dialog id="lb" aria-label="Foto ampliada"><button class="dl-x" aria-label="Cerrar foto">×</button><img id="lbimg" alt=""><p class="hint" id="lbh">Toca la foto para acercar</p></dialog>
+<p class="fine" id="upd"></p>
+</div>
+<script>
+const DATA=[{"id": "Z001", "marca": "Adidas", "modelo": "campu", "talla": 42, "estado": 10, "precio": 35990, "situacion": "reservado", "foto": null, "fotos": [], "medida": "28", "detalle": null, "vence": "2026-12-02", "nuevo": false}, {"id": "Z002", "marca": "Adidas", "modelo": "campu", "talla": 40, "estado": 9, "precio": 459090, "situacion": "disponible", "foto": null, "fotos": [], "medida": "26", "detalle": null, "vence": null, "nuevo": false}, {"id": "Z003", "marca": "Adidas", "modelo": "Samba OG", "talla": 42, "estado": 10, "precio": 25990, "situacion": "disponible", "foto": null, "fotos": [], "medida": "27", "detalle": null, "vence": null, "nuevo": false}, {"id": "Z004", "marca": "Adidas", "modelo": "Gazelle", "talla": 40, "estado": 9, "precio": 58990, "situacion": "disponible", "foto": null, "fotos": [], "medida": "26", "detalle": null, "vence": null, "nuevo": false}, {"id": "Z005", "marca": "Adidas", "modelo": "Superstar", "talla": 43, "estado": 10, "precio": 33990, "situacion": "disponible", "foto": null, "fotos": [], "medida": "28", "detalle": null, "vence": null, "nuevo": false}, {"id": "Z006", "marca": "Vans", "modelo": "Old Skool", "talla": 41, "estado": 8, "precio": 40990, "situacion": "disponible", "foto": null, "fotos": [], "medida": "26", "detalle": null, "vence": null, "nuevo": false}, {"id": "Z007", "marca": "Vans", "modelo": "Old Skool", "talla": 42, "estado": 10, "precio": 38990, "situacion": "disponible", "foto": null, "fotos": [], "medida": "27", "detalle": null, "vence": null, "nuevo": false}, {"id": "Z008", "marca": "Vans", "modelo": "Old Skool", "talla": 41, "estado": 10, "precio": 65990, "situacion": "disponible", "foto": null, "fotos": [], "medida": "26", "detalle": null, "vence": null, "nuevo": false}, {"id": "Z009", "marca": "Vans", "modelo": "Authentic", "talla": 42, "estado": 9, "precio": 34990, "situacion": "disponible", "foto": null, "fotos": [], "medida": "27", "detalle": null, "vence": null, "nuevo": false}, {"id": "Z010", "marca": "Vans", "modelo": "Authentic", "talla": 41, "estado": 7, "precio": 25990, "situacion": "disponible", "foto": null, "fotos": [], "medida": "26", "detalle": null, "vence": null, "nuevo": false}, {"id": "Z011", "marca": "Jordan", "modelo": "Air Max", "talla": 42, "estado": 10, "precio": 39990, "situacion": "disponible", "foto": null, "fotos": [], "medida": "27", "detalle": null, "vence": null, "nuevo": false}, {"id": "Z012", "marca": "Jordan", "modelo": "1", "talla": 42, "estado": 10, "precio": 42990, "situacion": "disponible", "foto": null, "fotos": [], "medida": "27", "detalle": null, "vence": null, "nuevo": false}, {"id": "Z013", "marca": "Jordan", "modelo": "2", "talla": 43, "estado": 9, "precio": 39990, "situacion": "disponible", "foto": null, "fotos": [], "medida": "28", "detalle": null, "vence": null, "nuevo": false}, {"id": "Z014", "marca": "Jordan", "modelo": "air max 90", "talla": 42, "estado": 10, "precio": 47990, "situacion": "disponible", "foto": null, "fotos": [], "medida": "27", "detalle": null, "vence": null, "nuevo": false}, {"id": "Z015", "marca": "Jordan", "modelo": "3", "talla": 42, "estado": 10, "precio": 89990, "situacion": "disponible", "foto": null, "fotos": [], "medida": "27", "detalle": null, "vence": null, "nuevo": false}, {"id": "Z016", "marca": "Nike", "modelo": "Blazer", "talla": 41, "estado": 10, "precio": 31990, "situacion": "disponible", "foto": null, "fotos": [], "medida": "26", "detalle": null, "vence": null, "nuevo": false}, {"id": "Z017", "marca": "Nike", "modelo": "Blazer", "talla": 41, "estado": 9, "precio": 43990, "situacion": "disponible", "foto": null, "fotos": [], "medida": "26", "detalle": null, "vence": null, "nuevo": true}, {"id": "Z018", "marca": "Nike", "modelo": "Blazer", "talla": 41, "estado": 8, "precio": 38990, "situacion": "disponible", "foto": null, "fotos": [], "medida": "27", "detalle": null, "vence": null, "nuevo": true}, {"id": "Z019", "marca": "Nike", "modelo": "Air Max", "talla": 41, "estado": 10, "precio": 28990, "situacion": "reservado", "foto": null, "fotos": [], "medida": "27", "detalle": null, "vence": "2026-12-02", "nuevo": true}, {"id": "Z020", "marca": "Nike", "modelo": "Air Max", "talla": 41, "estado": 10, "precio": 35990, "situacion": "disponible", "foto": null, "fotos": [], "medida": "26", "detalle": null, "vence": null, "nuevo": true}], DEMO=false, UPD="26 de noviembre de 2026", WA="56964751229";
+const $=s=>document.querySelector(s);
+const clp=n=>"$"+Number(n).toLocaleString("es-CL");
+const SHOE='<svg viewBox="0 0 220 120" role="img" aria-label="Zapatilla"><path d="M12 84c0-10 4-16 12-18l30-8c10-3 16-9 22-20 3-6 8-8 14-6l20 8c8 3 14 8 22 14 10 7 22 10 40 13 18 3 34 10 34 22v7c0 4-3 7-7 7H20c-5 0-8-3-8-7z" fill="var(--shoe)"/><path d="M12 92h196c0 9-3 13-9 13H21c-6 0-9-4-9-13z" fill="var(--shoe-sole)"/><path d="M92 40l8 10M106 46l8 10M120 52l8 10" stroke="var(--shoe-sole)" stroke-width="3" stroke-linecap="round"/></svg>';
+let fTalla="", fMarca="", fOrden="nuevo";
+function msg(p){return encodeURIComponent("Hola, quiero reservar el par "+p.id+" ("+p.marca+(p.modelo?" "+p.modelo:"")+", talla "+p.talla+") a "+clp(p.precio)+". ¿Sigue disponible?")}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function pips(p){return p.estado!=null?'<span class="pips" aria-hidden="true">'+[1,2,3,4,5].map(i=>'<i class="'+(i<=Math.round(p.estado/2)?"on":"")+'"></i>').join("")+"</span>":""}
+function pic(p){return p.foto?'<img src="'+esc(p.foto)+'" alt="'+esc(p.marca+" "+(p.modelo||""))+', talla '+esc(p.talla)+'" loading="lazy">':SHOE}
+function waBtn(p){return p.situacion==="reservado"?'<span class="btn" aria-disabled="true">Reservado</span>':'<a class="btn" href="https://wa.me/'+WA+'?text='+msg(p)+'" target="_blank" rel="noopener">Reservar por WhatsApp</a>'}
+let FAV=[];try{FAV=JSON.parse(localStorage.getItem("pu_fav")||"[]")}catch(e){}
+function saveFav(){try{localStorage.setItem("pu_fav",JSON.stringify(FAV))}catch(e){}}
+function favBtn(p){const on=FAV.includes(p.id);return '<button class="fav" data-id="'+esc(p.id)+'" aria-pressed="'+on+'" aria-label="'+(on?'Quitar de favoritos':'Guardar en favoritos')+'">'+(on?'♥':'♡')+'</button>'}
+let fFav=false;
+function card(p,i){
+  const res=p.situacion==="reservado";
+  return '<article class="card"><button class="open" data-i="'+i+'" aria-label="Ver detalle de '+esc(p.marca+" "+(p.modelo||""))+', talla '+esc(p.talla)+'"><div class="ph">'+pic(p)+'<span class="code">'+esc(p.id)+'</span>'+(res?'<span class="res">Reservado</span>':'')+(p.nuevo&&!res?'<span class="new">Recién llegado</span>':'')+'</div></button>'+favBtn(p)+'<div class="info"><span class="mk">'+esc(p.marca)+'</span><h3 class="md">'+esc(p.modelo||p.marca)+'</h3><div class="meta"><span class="tp">Talla '+esc(p.talla)+'</span>'+(p.estado!=null?'<span>Estado <b>'+esc(p.estado)+'/10</b>'+pips(p)+'</span>':'')+'</div><div class="price">'+clp(p.precio)+'</div><div class="ent">Entrega en mano</div>'+waBtn(p)+'</div></article>';
+}
+let LIST=[];
+let PM=null;try{PM=localStorage.getItem("pu_mov")}catch(e){}
+let RM=PM?PM==="off":matchMedia("(prefers-reduced-motion:reduce)").matches;
+function aplicaMov(){const h=document.documentElement;h.classList.toggle("nomov",RM);h.classList.toggle("anim",!RM);const m=$("#mov");if(m){m.textContent=RM?"▶ Animar":"■ Quieto";m.setAttribute("aria-pressed",String(!RM))}}
+let IO=null;
+function revela(){const cs=[...document.querySelectorAll(".card")];if(RM||!("IntersectionObserver" in window)){cs.forEach(c=>c.classList.add("in"));return}
+ if(!IO)IO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");IO.unobserve(e.target)}}),{rootMargin:"0px 0px -6% 0px",threshold:.08});
+ cs.forEach((c,i)=>{c.style.setProperty("--d",i%4);IO.observe(c)})}
+function render(){
+  LIST=DATA.filter(p=>(!fFav||FAV.includes(p.id))&&(!fTalla||String(p.talla)===fTalla)&&(!fMarca||p.marca===fMarca));
+  LIST.sort((a,b)=>fOrden==="menor"?a.precio-b.precio:fOrden==="mayor"?b.precio-a.precio:(b.nuevo-a.nuevo)||b.id.localeCompare(a.id));
+  const nada='<div class="pnote"><p style="margin:0 0 8px"><b>'+(fTalla?'Hoy no hay pares en talla '+esc(fTalla):'No hay pares con ese filtro')+'.</b></p><a href="https://wa.me/'+WA+'?text='+encodeURIComponent("Hola, busco zapatillas"+(fTalla?" talla "+fTalla:"")+". ¿Me avisas cuando llegue algo?")+'" target="_blank" rel="noopener">Avísame por WhatsApp cuando llegue tu talla</a></div>';
+  $("#grid").innerHTML=LIST.length?LIST.map(card).join(""):nada;
+  revela();
+  $("#count").textContent=LIST.length+(LIST.length===1?" par":" pares");
+  document.querySelectorAll(".chip[data-t]").forEach(c=>c.setAttribute("aria-pressed",String(c.dataset.t===fTalla)));
+  document.querySelectorAll(".chip[data-m]").forEach(c=>c.setAttribute("aria-pressed",String(c.dataset.m===fMarca)));
+  const fv=$("#fvchip");if(fv){fv.textContent="♥ Favoritos ("+FAV.length+")";fv.setAttribute("aria-pressed",String(fFav))}
+}
+const TINTS=["#FFD84D","#FF9EC4","#7FE3BC","#9CC8FF","#FFB48A"];
+function phSvg(t,c){const sv='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect width="400" height="300" fill="'+c+'"/><g transform="translate(80 85) scale(1.1)"><path d="M12 84c0-10 4-16 12-18l30-8c10-3 16-9 22-20 3-6 8-8 14-6l20 8c8 3 14 8 22 14 10 7 22 10 40 13 18 3 34 10 34 22v7c0 4-3 7-7 7H20c-5 0-8-3-8-7z" fill="#111"/><path d="M12 92h196c0 9-3 13-9 13H21c-6 0-9-4-9-13z" fill="#fff"/></g><text x="200" y="272" text-anchor="middle" font-family="Arial" font-weight="700" font-size="20" fill="#111">'+t+'</text></svg>';return "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(sv)}
+function fotosDe(p){const k=Math.max(0,DATA.indexOf(p));const L=[];if(p.foto)L.push({u:p.foto,t:"Frente"});(p.fotos||[]).forEach(u=>{if(u&&u!==p.foto)L.push({u:u,t:""})});
+ if(DEMO){["Frente","Lateral","Suela","Talón","Detalle · marca de uso"].forEach((t,i)=>{if(L.length<5)L.push({u:phSvg(t+" (foto de ejemplo)",TINTS[(k+i)%5]),t:t,ej:true})})}
+ return L}
+function fechaCorta(iso){try{return new Date(iso+"T12:00:00").toLocaleDateString("es-CL",{day:"numeric",month:"long"})}catch(e){return iso}}
+function diasHasta(iso){return Math.ceil((new Date(iso+"T23:59:59")-new Date())/864e5)}
+function enlaceDe(p){let b=location.href.split("#")[0];return b+"#"+p.id}
+let CUR=null;
+function detalle(p,tint){
+  CUR=p;const d=$("#dlg"),res=p.situacion==="reservado",F=fotosDe(p);
+  const gal=F.length?'<div class="gwrap"><div class="gal" id="gal" aria-label="Fotos del par">'+F.map((f,i)=>'<button class="sl" data-k="'+i+'" aria-label="Ampliar foto '+(i+1)+' de '+F.length+'"><img src="'+esc(f.u)+'" alt="'+esc(p.marca+" "+(p.modelo||"")+", talla "+p.talla+(f.t?" · "+f.t:""))+'">'+(f.t?'<span class="gt">'+esc(f.t)+'</span>':'')+'</button>').join("")+'</div>'+(F.length>1?'<button class="gnav p" aria-label="Foto anterior">‹</button><button class="gnav n" aria-label="Foto siguiente">›</button>':'')+'<button class="dl-x" aria-label="Cerrar">×</button></div>'+(F.length>1?'<div class="gdots" id="gd">'+F.map((_,i)=>'<i class="'+(i?'':'on')+'"></i>').join("")+'<span id="gc">1/'+F.length+'</span></div>':''):'<div class="dl-ph" style="background:'+tint+'">'+SHOE+'<button class="dl-x" aria-label="Cerrar">×</button></div>';
+  const med=p.medida?'<span>Suela <b>'+String(p.medida).replace(".",",")+' cm</b></span>':'';
+  const det=p.detalle?'<div class="dbox"><b>Detalles que debes saber:</b> '+esc(p.detalle)+'</div>':(DEMO&&!res?'<div class="dbox"><b>Detalles que debes saber:</b> aquí irá cualquier marca o desgaste, con su foto. (ejemplo)</div>':'');
+  const lib=res&&p.vence?'<div class="libera"><b>Reservado.</b> Si no se paga el saldo antes del '+esc(fechaCorta(p.vence))+(diasHasta(p.vence)>=0?' (quedan '+diasHasta(p.vence)+(diasHasta(p.vence)===1?' día':' días')+')':'')+', vuelve al catálogo.</div>':(res?'<div class="libera"><b>Reservado.</b> Si se libera, puedes pedir que te avisemos.</div>':'');
+  const av='<a class="btn" href="https://wa.me/'+WA+'?text='+encodeURIComponent("Hola, me gustó el par "+p.id+" ("+p.marca+" "+(p.modelo||"")+", talla "+p.talla+"). ¿Me avisas si se libera?")+'" target="_blank" rel="noopener">Avísame si se libera</a>';
+  const link=enlaceDe(p);
+  d.innerHTML=gal+'<div class="dl-b"><span class="mk">'+esc(p.marca)+' · '+esc(p.id)+'</span><h2>'+esc(p.modelo||p.marca)+'</h2><div class="meta"><span class="tp">Talla '+esc(p.talla)+'</span>'+(p.estado!=null?'<span>Estado <b>'+esc(p.estado)+'/10</b>'+pips(p)+'</span>':'')+med+'</div><div class="price">'+clp(p.precio)+'</div>'+lib+det+'<ul class="dl-list"><li>Par único: hay uno solo, en esta talla.</li><li>Abono del 30% (no reembolsable); el saldo lo pagas dentro de 5 días hábiles.</li><li>Transferencia, o efectivo al recibir.</li><li>Pide más fotos o medidas por WhatsApp antes de reservar.</li></ul>'+(res?av:waBtn(p))+'<div class="share"><button id="cp" type="button">Copiar enlace</button><a href="https://wa.me/?text='+encodeURIComponent(p.marca+" "+(p.modelo||"")+" talla "+p.talla+" · "+clp(p.precio)+" · "+link)+'" target="_blank" rel="noopener">Compartir por WhatsApp</a></div><input class="lnk" id="lk" readonly value="'+esc(link)+'" aria-label="Enlace del par" hidden>'+(DEMO?'<p class="note-ph">Ficha de ejemplo: fotos, medida y detalles son inventados.</p>':'')+'</div>';
+  d.querySelector(".dl-x").onclick=()=>d.close();
+  const g=$("#gal");
+  if(g){const dots=[...document.querySelectorAll("#gd i")],c=$("#gc");
+   const upd=()=>{const i=Math.round(g.scrollLeft/g.clientWidth);dots.forEach((x,j)=>x.classList.toggle("on",j===i));if(c)c.textContent=(i+1)+"/"+F.length};
+   g.addEventListener("scroll",upd,{passive:true});
+   const go=n=>g.scrollBy({left:n*g.clientWidth,behavior:RM?"auto":"smooth"});
+   const pv=d.querySelector(".gnav.p"),nx=d.querySelector(".gnav.n");if(pv){pv.onclick=()=>go(-1);nx.onclick=()=>go(1)}
+   g.addEventListener("keydown",e=>{if(e.key==="ArrowRight")go(1);if(e.key==="ArrowLeft")go(-1)});
+   g.onclick=e=>{const b=e.target.closest(".sl");if(!b)return;const k=+b.dataset.k;abreLB(F[k],p)}}
+  $("#cp").onclick=async()=>{const lk=$("#lk");try{await navigator.clipboard.writeText(link);$("#cp").textContent="¡Enlace copiado!"}catch(e){lk.hidden=false;lk.select();$("#cp").textContent="Copia el enlace de abajo"}setTimeout(()=>{const x=$("#cp");if(x)x.textContent="Copiar enlace"},2500)};
+  d.showModal();
+  try{history.replaceState(null,"","#"+p.id)}catch(e){}
+}
+function abreLB(f,p){const lb=$("#lb"),im=$("#lbimg");im.src=f.u;im.alt=p.marca+" "+(p.modelo||"")+(f.t?" · "+f.t:"");im.classList.remove("z");im.style.transformOrigin="50% 50%";$("#lbh").textContent="Toca la foto para acercar";lb.showModal()}
+(function(){const im=document.addEventListener("click",e=>{const i=e.target.closest("#lbimg");if(!i)return;const r=i.getBoundingClientRect();if(!i.classList.contains("z")){i.style.transformOrigin=((e.clientX-r.left)/r.width*100)+"% "+((e.clientY-r.top)/r.height*100)+"%";i.classList.add("z");$("#lbh").textContent="Mueve el dedo para recorrer · toca para alejar"}else{i.classList.remove("z");$("#lbh").textContent="Toca la foto para acercar"}});
+ document.addEventListener("pointermove",e=>{const i=document.querySelector("#lbimg.z");if(!i)return;const r=i.parentElement.getBoundingClientRect();i.style.transformOrigin=Math.max(0,Math.min(100,(e.clientX-r.left)/r.width*100))+"% "+Math.max(0,Math.min(100,(e.clientY-r.top)/r.height*100))+"%"});
+ document.addEventListener("click",e=>{if(e.target.closest("#lb .dl-x"))$("#lb").close()})})();
+function init(){
+  const tallas=[...new Set(DATA.map(p=>String(p.talla)))].sort((a,b)=>parseFloat(a)-parseFloat(b));
+  $("#chips").innerHTML='<button class="chip fv" id="fvchip" aria-pressed="false">♥ Favoritos (0)</button><button class="chip" data-t="" aria-pressed="true">Todas las tallas</button>'+tallas.map(t=>'<button class="chip" data-t="'+esc(t)+'" aria-pressed="false">'+esc(t)+'</button>').join("");
+  $("#chips").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;if(b.id==="fvchip"){fFav=!fFav}else{fTalla=b.dataset.t}render()});
+  const marcas=[...new Set(DATA.map(p=>p.marca))].sort();
+  $("#mchips").innerHTML='<button class="chip" data-m="" aria-pressed="true">Todas las marcas</button>'+marcas.map(m=>'<button class="chip" data-m="'+esc(m)+'" aria-pressed="false">'+esc(m)+'</button>').join("");
+  $("#mchips").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;fMarca=b.dataset.m;render()});
+  $("#orden").addEventListener("change",e=>{fOrden=e.target.value;render()});
+  $("#grid").addEventListener("click",e=>{const f=e.target.closest(".fav");if(f){const id=f.dataset.id;FAV=FAV.includes(id)?FAV.filter(x=>x!==id):[...FAV,id];saveFav();render();const nb=document.querySelector('.fav[data-id="'+id+'"]');if(nb&&FAV.includes(id)&&!RM){nb.classList.add("pop")}return}const b=e.target.closest(".open");if(b){const ph=b.querySelector(".ph");detalle(LIST[+b.dataset.i],getComputedStyle(ph).backgroundColor)}});
+  $("#grid").addEventListener("pointermove",e=>{if(RM||e.pointerType!=="mouse")return;const c=e.target.closest(".card");if(!c)return;const r=c.querySelector(".ph").getBoundingClientRect();c.style.setProperty("--tx",((e.clientX-r.left)/r.width-.5)*18+"px");c.style.setProperty("--ty",((e.clientY-r.top)/r.height-.5)*10+"px")});
+  $("#dlg").addEventListener("click",e=>{if(e.target===$("#dlg"))$("#dlg").close()});
+  $("#dlg").addEventListener("close",()=>{try{if(DATA.some(p=>"#"+p.id===location.hash))history.replaceState(null,"",location.href.split("#")[0])}catch(e){}});
+  const abre=()=>{const p=DATA.find(x=>"#"+x.id===location.hash);if(p&&!$("#dlg").open){const k=LIST.indexOf(p);const t=k>=0&&document.querySelectorAll(".card .ph")[k]?getComputedStyle(document.querySelectorAll(".card .ph")[k]).backgroundColor:TINTS[0];detalle(p,t)}};
+  addEventListener("hashchange",abre);setTimeout(abre,60);
+  const av=$("#av-t");const tl=[...new Set([...Array.from({length:11},(_,i)=>String(36+i)),...tallas])].sort((a,b)=>parseFloat(a)-parseFloat(b));av.innerHTML=tl.map(t=>'<option value="'+esc(t)+'">Talla '+esc(t)+'</option>').join("");
+  const avl=()=>{$("#av-b").href="https://wa.me/"+WA+"?text="+encodeURIComponent("Hola"+($("#av-n").value.trim()?", soy "+$("#av-n").value.trim():"")+". Busco zapatillas talla "+av.value+". ¿Me avisas cuando llegue algo?")};av.addEventListener("change",avl);$("#av-n").addEventListener("input",avl);avl();
+  if(DEMO)$("#demo").hidden=false;
+  if(DEMO)document.querySelectorAll(".borr").forEach(x=>x.hidden=false);
+  const nuevos=DATA.filter(p=>p.nuevo&&p.situacion!=="reservado");
+  if(nuevos.length){$("#recsec").hidden=false;const T=["--t1","--t2","--t3","--t4","--t5"];
+   $("#rail").innerHTML=nuevos.map((p,i)=>'<button class="mini" role="listitem" data-id="'+esc(p.id)+'" aria-label="Ver '+esc(p.marca+" "+(p.modelo||""))+', talla '+esc(p.talla)+'"><div class="ph" style="background:var(var('+T[i%5]+'))">'+pic(p)+'<span class="code">'+esc(p.id)+'</span><span class="new">Recién llegado</span></div><div class="mi"><span class="mk">'+esc(p.marca)+'</span><div class="md">'+esc(p.modelo||p.marca)+'</div><div class="meta"><span class="tp">Talla '+esc(p.talla)+'</span></div><div class="price">'+clp(p.precio)+'</div></div></button>').join("");
+   $("#rail").addEventListener("click",e=>{const b=e.target.closest(".mini");if(!b)return;const p=DATA.find(x=>x.id===b.dataset.id);detalle(p,getComputedStyle(b.querySelector(".ph")).backgroundColor)})}
+  const disp=DATA.filter(p=>p.situacion!=="reservado").length,rsv=DATA.length-disp,nm=new Set(DATA.map(p=>p.marca)).size;
+  $("#stats").innerHTML='<span><b data-n="'+disp+'">'+disp+'</b> disponibles</span><span><b data-n="'+rsv+'">'+rsv+'</b> reservados</span><span><b data-n="'+nm+'">'+nm+'</b> marcas</span>';
+  if(!RM){document.querySelectorAll("#stats b").forEach(b=>{const n=+b.dataset.n,t0=performance.now();(function f(t){const k=Math.min(1,(t-t0)/900);b.textContent=Math.round(n*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(f)})(t0)})}
+  $("#wapp").href="https://wa.me/"+WA+"?text="+encodeURIComponent("Hola, tengo una consulta sobre los pares del catálogo.");
+  $("#upd").textContent="Catálogo actualizado el "+UPD+". Cada par es único: si ya lo reservó otra persona, aparece como Reservado.";
+  render();
+}
+function efectivo(){const t=document.documentElement.dataset.theme;return t||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light")}
+function pintaTema(){$("#tema").textContent=efectivo()==="dark"?"☀ Claro":"☾ Oscuro"}
+try{const t=localStorage.getItem("pu_tema");if(t)document.documentElement.dataset.theme=t}catch(e){}
+$("#tema").addEventListener("click",()=>{const n=efectivo()==="dark"?"light":"dark";document.documentElement.dataset.theme=n;try{localStorage.setItem("pu_tema",n)}catch(e){}pintaTema()});
+pintaTema();
+document.addEventListener("click",e=>{const a=e.target.closest(".btn[href]");if(!a||RM)return;const C=["#FFD84D","#FF9EC4","#7FE3BC","#9CC8FF","#E32B2B","#ffffff"];for(let i=0;i<16;i++){const d=document.createElement("i");d.className="cf";d.style.left=e.clientX+"px";d.style.top=e.clientY+"px";d.style.background=C[i%6];document.body.appendChild(d);const ang=Math.random()*Math.PI*2,v=50+Math.random()*70;d.animate([{transform:"translate(0,0) rotate(0)",opacity:1},{transform:"translate("+Math.cos(ang)*v+"px,"+(Math.sin(ang)*v+40)+"px) rotate("+(Math.random()*540)+"deg)",opacity:0}],{duration:700+Math.random()*300,easing:"cubic-bezier(.2,.8,.3,1)"}).onfinish=()=>d.remove()}});
+init();
+if("IntersectionObserver" in window)new IntersectionObserver(es=>$("#bar").classList.toggle("stuck",!es[0].isIntersecting&&es[0].boundingClientRect.top<0)).observe($("#sent"));
+aplicaMov();
+addEventListener("scroll",()=>{if(RM)return;const y=Math.min(scrollY,600);$("#herobg").style.transform="translateY("+(y*.25)+"px)"},{passive:true});
+$("#mov").addEventListener("click",()=>{RM=!RM;try{localStorage.setItem("pu_mov",RM?"off":"on")}catch(e){}aplicaMov();render()});
+</script>
+
+</body>
+</html>
